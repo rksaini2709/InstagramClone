@@ -20,7 +20,7 @@
         tools:layout="@layout/fragment_search" />
 
     <!-- Fragment for adding a new post -->
-    <fragment
+    <dialog
         android:id="@+id/add_post"
         android:name="com.example.instagramclone.fragments.AddFragment"
         android:label="fragment_add"

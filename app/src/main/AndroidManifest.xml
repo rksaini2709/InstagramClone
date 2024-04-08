@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Declare permissions, app components, and metadata for the app -->
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,26 +12,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InstagramClone"
         tools:targetApi="31">
-
-        <!-- Define application components such as activities, services, broadcast receivers, and content providers -->
-
+        <activity
+            android:name=".GoLiveActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StoryHighlightActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StoryUploadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PostUploadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReelUploadActivity"
+            android:exported="false" /> <!-- Define application components such as activities, services, broadcast receivers, and content providers -->
         <!-- Activity for the home screen -->
         <activity
             android:name=".HomeActivity"
             android:exported="false"
-            android:label="@string/title_activity_home" />
-
-        <!-- Activity for user login -->
+            android:label="@string/title_activity_home" /> <!-- Activity for user login -->
         <activity
             android:name=".LoginActivity"
-            android:exported="false" />
-
-        <!-- Activity for user sign up -->
+            android:exported="false" /> <!-- Activity for user sign up -->
         <activity
             android:name=".SignUpActivity"
-            android:exported="false" />
-
-        <!-- Main activity launched when the app is started -->
+            android:exported="false" /> <!-- Main activity launched when the app is started -->
         <activity
             android:name=".MainActivity"
             android:exported="true">

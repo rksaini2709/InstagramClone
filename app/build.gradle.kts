@@ -72,4 +72,7 @@ dependencies {
 
     // use of picaso for image (profile) loading
     implementation ("com.squareup.picasso:picasso:2.8")
+
+    // RoundedImageView
+    implementation ("com.makeramen:roundedimageview:2.3.0")
 }

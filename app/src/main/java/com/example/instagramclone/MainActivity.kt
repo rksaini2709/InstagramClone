@@ -6,6 +6,9 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import android.graphics.Color
+import android.os.Build
+import android.view.View
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
@@ -15,8 +18,11 @@ class MainActivity : AppCompatActivity() {
         // Set the layout resource for the activity
         setContentView(R.layout.activity_main)
 
-        // Set status bar color to transparent
-        window.statusBarColor = Color.TRANSPARENT
+        // Make the status bar transparent and adjust the status bar icon colors
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
+        }
 
         // Use Handler to delay the execution of code for 3 seconds
         Handler(Looper.getMainLooper()).postDelayed({

@@ -7,13 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.instagramclone.Models.User
+import com.example.instagramclone.R
 import com.example.instagramclone.SignUpActivity
 import com.example.instagramclone.adapters.ViewPagerAdapter
 import com.example.instagramclone.databinding.FragmentProfileBinding
 import com.example.instagramclone.utils.USER_NODE
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.toObject
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
@@ -44,6 +46,16 @@ class ProfileFragment : Fragment() {
         viewPagerAdapter.addFragment(MyReelFragment(), "My Reel")
         viewPagerAdapter.addFragment(TagFragment(), "Tags")
         binding.viewPager.adapter = viewPagerAdapter
+
+        // Set up TabLayout with ViewPager using TabLayoutMediator
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            // Set custom view for each tab (in this case, setting icons)
+            when (position) {
+                0 -> tab.setIcon(R.drawable.my_post) // Set icon for "My Post" tab
+                1 -> tab.setIcon(R.drawable.reel_icon) // Set icon for "My Reel" tab
+                2 -> tab.setIcon(R.drawable.tag_me) // Set icon for "Tags" tab
+            }
+        }.attach() // Attach TabLayoutMediator
 
         return binding.root
     }

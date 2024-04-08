@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".PostUploadActivity">
+
+    <!-- MaterialToolbar for displaying the app bar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/materialToolbar"
+        style="@style/TextColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="New Post" />
+
+    <!-- ImageView for selecting an image -->
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/select_image"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/post_upload"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/materialToolbar"
+        app:layout_constraintTop_toBottomOf="@+id/materialToolbar"
+        app:riv_border_color="#333333"
+        app:riv_border_width="2dip"
+        app:riv_corner_radius="5dip" />
+
+    <!-- TextInputLayout for entering caption -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- TextInputEditText for entering caption -->
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Write a caption"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/select_image"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="@+id/select_image"
+        app:layout_constraintTop_toBottomOf="@+id/select_image"
+        app:layout_constraintVertical_bias="0.07999998" />
+
+    <!-- LinearLayout for Reel section -->
+    <LinearLayout
+        android:id="@+id/reel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/caption"
+        app:layout_constraintVertical_bias="0.0">
+
+        <!-- ImageView for Reel icon -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="2dp"
+            android:src="@drawable/post_upload" />
+
+        <!-- TextView for Reel label -->
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Shared to Post"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- TextView for guidance message -->
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Your post may be appear in Posts and can be seen on the posts tab under your profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/reel"
+        app:layout_constraintStart_toStartOf="@+id/reel"
+        app:layout_constraintTop_toBottomOf="@+id/reel"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <!-- LinearLayout for Cancel and Post buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+        <!-- Button for cancel action -->
+        <Button
+            android:id="@+id/cancel_button"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:textColor="@color/click_button_blue"
+            app:strokeColor="@color/click_button_blue" />
+
+        <!-- Button for post action -->
+        <Button
+            android:id="@+id/post_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/click_button_blue"
+            android:text="Post" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
