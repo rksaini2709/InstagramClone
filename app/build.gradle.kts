@@ -75,4 +75,7 @@ dependencies {
 
     // RoundedImageView
     implementation ("com.makeramen:roundedimageview:2.3.0")
+
+    // Dependency declaration to include Glide library in the project
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 }

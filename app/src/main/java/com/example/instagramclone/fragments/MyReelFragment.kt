@@ -1,33 +1,30 @@
+// MyReelFragment.kt
+// This fragment is responsible for displaying a user's reel (video posts) on their profile screen.
+
 package com.example.instagramclone.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.instagramclone.R
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.instagramclone.Models.UploadReel
+import com.example.instagramclone.adapters.UploadReelOnProfileAdapter
+import com.example.instagramclone.databinding.FragmentMyReelBinding
+import com.example.instagramclone.utils.REEL
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
+import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MyReelFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MyReelFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var binding : FragmentMyReelBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        // Any initialization code can be placed here
     }
 
     override fun onCreateView(
@@ -35,26 +32,38 @@ class MyReelFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_reel, container, false)
+        binding = FragmentMyReelBinding.inflate(inflater, container, false)
+
+        // Initialize an empty list to hold UploadReel objects
+        val reelList = ArrayList<UploadReel>()
+
+        // Initialize the adapter with the context and the empty reel list
+        val adapter = UploadReelOnProfileAdapter(requireContext(), reelList)
+
+        // Set up the RecyclerView with a StaggeredGridLayoutManager
+        binding.uploadedReelOnProfile.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+
+        // Set the adapter for the RecyclerView
+        binding.uploadedReelOnProfile.adapter = adapter
+
+        // Fetch reels from Firestore
+        Firebase.firestore.collection(Firebase.auth.currentUser!!.uid + REEL).get().addOnSuccessListener { querySnapshot ->
+            val tempList = arrayListOf<UploadReel>()
+            for (document in querySnapshot.documents) {
+                // Convert each document to an UploadReel object and add it to the temporary list
+                val reel: UploadReel = document.toObject<UploadReel>()!!
+                tempList.add(reel)
+            }
+            // Add all the fetched reels to the main reel list
+            reelList.addAll(tempList)
+            // Notify the adapter that the data set has changed
+            adapter.notifyDataSetChanged()
+        }
+
+        return binding.root
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MyReelFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MyReelFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        // Any static variables or methods can be placed here
     }
 }

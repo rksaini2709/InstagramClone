@@ -51,6 +51,14 @@ class PostUploadActivity : AppCompatActivity() {
         // Set the content view to the root view of the binding
         setContentView(binding.root)
 
+
+        // Set the custom toolbar as the support action bar
+        setSupportActionBar(binding.materialToolbar)
+
+        // Enable the Up button for navigation
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         // Set the custom toolbar as the support action bar
         setSupportActionBar(binding.materialToolbar)
 

@@ -1,17 +1,21 @@
+// UploadReelOnProfileAdapter.kt
+// This adapter is responsible for binding UploadReel objects to views in a RecyclerView, specifically for a user's profile screen.
+
 package com.example.instagramclone.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.instagramclone.Models.UploadReel
 import com.example.instagramclone.databinding.UploadedPostOnProfileBinding
-import com.example.instagramclone.Models.UploadPost
-import com.squareup.picasso.Picasso
 
-class UploadPostOnProfileAdapter(
+class UploadReelOnProfileAdapter(
     var context: Context,
-    var postList: ArrayList<UploadPost>
-) : RecyclerView.Adapter<UploadPostOnProfileAdapter.ViewHolder>() {
+    var reelList: ArrayList<UploadReel>
+) : RecyclerView.Adapter<UploadReelOnProfileAdapter.ViewHolder>() {
 
     // ViewHolder class to hold the views for each item in the RecyclerView
     inner class ViewHolder(var binding: UploadedPostOnProfileBinding) :
@@ -27,12 +31,16 @@ class UploadPostOnProfileAdapter(
 
     // This method returns the size of the dataset, i.e., the number of items to be displayed in the RecyclerView.
     override fun getItemCount(): Int {
-        return postList.size
+        return reelList.size
     }
 
     // This method is called by RecyclerView to display the data at the specified position.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // Using Picasso library to load the image from the URL into the ImageView
-        Picasso.get().load(postList[position].uploadPostUrl).into(holder.binding.postImage)
+        // Using Glide to load the image from the UploadReel object into the ImageView
+        Glide.with(context)
+            .load(reelList[position].uploadReelUrl)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(holder.binding.postImage)
     }
 }
+
