@@ -1,5 +1,6 @@
 package com.example.instagramclone
 
+// Import necessary dependencies and modules
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Build
@@ -11,12 +12,18 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.instagramclone.Models.UploadReel
+import com.example.instagramclone.Models.User
 import com.example.instagramclone.databinding.ActivityReelUploadBinding
 import com.example.instagramclone.utils.REEL
 import com.example.instagramclone.utils.UPLOAD_REEL_FOLDER
+import com.example.instagramclone.utils.USER_NODE
 import com.example.instagramclone.utils.uploadReel
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
 
 // ReelUploadActivity class definition
 class ReelUploadActivity : AppCompatActivity() {
@@ -91,52 +98,59 @@ class ReelUploadActivity : AppCompatActivity() {
 
         // Set click listener for the post button
         binding.postButton.setOnClickListener {
-            // Ensure that a reel is selected
-            if (reelUrl != null) {
-                // Create an UploadReel object with the reel URL and caption
-                val reel = UploadReel(reelUrl!!, binding.caption.editableText?.toString() ?: "")
 
-                // Save the reel to Firestore
-                val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
-                currentUserUid?.let { uid ->
-                    val firestore = FirebaseFirestore.getInstance()
-                    val reelRef = firestore.collection(REEL).document()
-                    reelRef.set(reel)
-                        .addOnSuccessListener {
-                            // Save the reel to the user's collection in Firestore
-                            firestore.collection(uid + REEL).document(reelRef.id)
-                                .set(reel)
-                                .addOnSuccessListener {
-                                    // Start the HomeActivity after successful upload
-                                    startActivity(Intent(this@ReelUploadActivity, HomeActivity::class.java))
-                                    // Finish the activity
-                                    finish()
-                                }
-                                .addOnFailureListener { e ->
-                                    // Handle failure to upload reel to user's collection
-                                    Toast.makeText(
-                                        this@ReelUploadActivity,
-                                        "Failed to upload reel: ${e.message}",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                        }
-                        .addOnFailureListener { e ->
-                            // Handle failure to upload reel to global collection
-                            Toast.makeText(
-                                this@ReelUploadActivity,
-                                "Failed to upload reel: ${e.message}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+            // Access Firebase Firestore to fetch user information
+            Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).get().addOnSuccessListener {
+                // Retrieve user information and convert it into a User object
+                var user : User = it.toObject<User>()!!
+
+                // Ensure that a reel is selected
+                if (reelUrl != null) {
+                    // Create an UploadReel object with the reel URL, caption, and user profile image URL
+                    val reel = UploadReel(reelUrl!!, binding.caption.editableText?.toString() ?: "" ,user.image!!)
+
+                    // Save the reel to Firestore
+                    val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+                    currentUserUid?.let { uid ->
+                        val firestore = FirebaseFirestore.getInstance()
+                        val reelRef = firestore.collection(REEL).document()
+                        reelRef.set(reel)
+                            .addOnSuccessListener {
+                                // Save the reel to the user's collection in Firestore
+                                firestore.collection(uid + REEL).document(reelRef.id)
+                                    .set(reel)
+                                    .addOnSuccessListener {
+                                        // Start the HomeActivity after successful upload
+                                        startActivity(Intent(this@ReelUploadActivity, HomeActivity::class.java))
+                                        // Finish the activity
+                                        finish()
+                                    }
+                                    .addOnFailureListener { e ->
+                                        // Handle failure to upload reel to user's collection
+                                        Toast.makeText(
+                                            this@ReelUploadActivity,
+                                            "Failed to upload reel: ${e.message}",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                            }
+                            .addOnFailureListener { e ->
+                                // Handle failure to upload reel to global collection
+                                Toast.makeText(
+                                    this@ReelUploadActivity,
+                                    "Failed to upload reel: ${e.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                    }
+                } else {
+                    // Display a message indicating that no reel is selected
+                    Toast.makeText(
+                        this@ReelUploadActivity,
+                        "Please select a reel first",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-            } else {
-                // Display a message indicating that no reel is selected
-                Toast.makeText(
-                    this@ReelUploadActivity,
-                    "Please select a reel first",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
         }
     }
