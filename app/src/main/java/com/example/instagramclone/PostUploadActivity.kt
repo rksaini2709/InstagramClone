@@ -7,23 +7,27 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.instagramclone.Models.UploadPost
+import com.example.instagramclone.Models.User
 import com.example.instagramclone.databinding.ActivityPostUploadBinding
 import com.example.instagramclone.utils.POST
 import com.example.instagramclone.utils.UPLOAD_POST_FOLDER
+import com.example.instagramclone.utils.USER_NODE
 import com.example.instagramclone.utils.uploadImage
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
 
+// PostUploadActivity class definition
 class PostUploadActivity : AppCompatActivity() {
 
     // Lazily initialize the binding for the activity
-    val binding by lazy {
+    private val binding by lazy {
         ActivityPostUploadBinding.inflate(layoutInflater)
     }
 
     // Variable to hold the URL of the uploaded image
-    var imageUrl: String? = null
+    private var imageUrl: String? = null
 
     // Activity result launcher for picking an image from the gallery
     private val launcher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
@@ -50,14 +54,6 @@ class PostUploadActivity : AppCompatActivity() {
 
         // Set the content view to the root view of the binding
         setContentView(binding.root)
-
-
-        // Set the custom toolbar as the support action bar
-        setSupportActionBar(binding.materialToolbar)
-
-        // Enable the Up button for navigation
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         // Set the custom toolbar as the support action bar
         setSupportActionBar(binding.materialToolbar)
@@ -87,48 +83,71 @@ class PostUploadActivity : AppCompatActivity() {
 
         // Set click listener for the post button
         binding.postButton.setOnClickListener {
-            // Ensure that an image is selected
-            if (imageUrl != null) {
-                // Get the caption entered by the user
-                val caption = binding.caption.text.toString()
 
-                // Create a Post object with the image URL and caption
-                val post = UploadPost(imageUrl!!, caption)
+            // Fetch the user document from Firestore
+            Firebase.firestore.collection(USER_NODE).document().get()
+                .addOnSuccessListener { document ->
+                    // Convert the Firestore document to a User object
+                    val user = document.toObject<User>()
 
-                // Save the post to Firestore
-                Firebase.firestore.collection(POST).document().set(post).addOnSuccessListener {
+                    // Check if user object is not null
+                    user?.let {
+                        // Ensure that an image is selected
+                        if (imageUrl != null) {
+                            // Get the caption entered by the user
+                            val caption = binding.caption.editableText?.toString() ?: ""
 
-                    // Save the post to the user's collection in Firestore
-                    Firebase.firestore.collection(Firebase.auth.currentUser!!.uid).document()
-                        .set(post).addOnSuccessListener {
-                        // Start the HomeActivity after successful upload
-                        startActivity(Intent(this@PostUploadActivity, HomeActivity::class.java))
-                        // Finish the activity
-                        finish()
-                    }.addOnFailureListener {
-                        // Handle failure to upload post to user's collection
-                        Toast.makeText(
-                            this@PostUploadActivity,
-                            "Failed to upload post",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                            // Create a Post object with the image URL and caption
+                            val post = UploadPost(
+                                uploadPostUrl = imageUrl!!, // URL of the uploaded image
+                                caption = caption, // Caption entered by the user
+                                name = Firebase.auth.currentUser!!.uid, // Name associated with the user
+                                time = System.currentTimeMillis().toString() // Current timestamp
+                            )
+
+                            // Save the post to Firestore
+                            Firebase.firestore.collection(POST).document().set(post)
+                                .addOnSuccessListener {
+
+                                    // Save the post to the user's collection in Firestore
+                                    Firebase.firestore.collection(Firebase.auth.currentUser!!.uid)
+                                        .document().set(post)
+                                        .addOnSuccessListener {
+                                            // Start the HomeActivity after successful upload
+                                            startActivity(
+                                                Intent(
+                                                    this@PostUploadActivity,
+                                                    HomeActivity::class.java
+                                                )
+                                            )
+                                            // Finish the activity
+                                            finish()
+                                        }.addOnFailureListener {
+                                            // Handle failure to upload post to user's collection
+                                            Toast.makeText(
+                                                this@PostUploadActivity,
+                                                "Failed to upload post",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                }.addOnFailureListener {
+                                    // Handle failure to upload post to global collection
+                                    Toast.makeText(
+                                        this@PostUploadActivity,
+                                        "Failed to upload post",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                        } else {
+                            // Display a message indicating that no image is selected
+                            Toast.makeText(
+                                this@PostUploadActivity,
+                                "Please select an image first",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
-                }.addOnFailureListener {
-                    // Handle failure to upload post to global collection
-                    Toast.makeText(
-                        this@PostUploadActivity,
-                        "Failed to upload post",
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
-            } else {
-                // Display a message indicating that no image is selected
-                Toast.makeText(
-                    this@PostUploadActivity,
-                    "Please select an image first",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
         }
     }
 }

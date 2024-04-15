@@ -1,60 +1,102 @@
 package com.example.instagramclone.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.instagramclone.Models.UploadPost
 import com.example.instagramclone.R
+import com.example.instagramclone.adapters.PostAdapter
+import com.example.instagramclone.databinding.FragmentHomeBinding
+import com.example.instagramclone.utils.POST
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+// HomeFragment class definition
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
+    // Binding object for the fragment layout
+    private lateinit var binding: FragmentHomeBinding
+
+    private var postList = ArrayList<UploadPost>()
+
+    private lateinit var adapter: PostAdapter
+
+    // onCreate method
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
+    // onCreateView method
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        // Inflate the layout for this fragment using the binding object
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        adapter = PostAdapter(requireContext(), postList)
+
+        binding.homeRecycleView.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.homeRecycleView.adapter = adapter
+
+        // This fragment has an options menu, so we need to set this flag to true
+        setHasOptionsMenu(true)
+
+        // Set the toolbar as the support action bar for the activity
+        // (Assuming the toolbar is named materialToolbar2 in the fragment layout)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.materialToolbar2)
+
+        // Set the title for the toolbar
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = null
+
+        // Fetching posts from Firestore
+        Firebase.firestore.collection(POST).get().addOnSuccessListener {
+
+            // Temporary list to hold fetched posts
+            val tempList = ArrayList<UploadPost>()
+
+            // Clear existing postList
+            postList.clear()
+
+            // Loop through each document in the result
+            for (document in it.documents) {
+                // Convert Firestore document to UploadPost object
+                val post : UploadPost = document.toObject<UploadPost>()!!
+
+                // Add post to temporary list
+                tempList.add(post)
+            }
+
+            // Add all posts from temporary list to postList
+            postList.addAll(tempList)
+
+            // Notify adapter that dataset has changed
+            adapter.notifyDataSetChanged()
+        }
+
+        // Return the root view of the fragment layout
+        return binding.root
     }
 
+    // onCreateOptionsMenu method to inflate the options menu
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // Inflate the menu layout into the provided Menu object
+        inflater.inflate(R.menu.notification_msg_menu, menu)
+        // Call the superclass implementation of this method
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    // Companion object
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+
     }
 }

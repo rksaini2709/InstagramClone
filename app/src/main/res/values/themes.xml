@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.InstagramClone" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Set the status bar color to transparent -->
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <!-- This style inherits from the base theme -->
     <style name="Theme.InstagramClone" parent="Base.Theme.InstagramClone" />
 
     <!-- Use black color for text in light mode -->
-
 </resources>
