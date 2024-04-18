@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.instagramclone.Models.UploadPost
 import com.example.instagramclone.R
-import com.example.instagramclone.adapters.PostAdapter
+import com.example.instagramclone.adapters.UploadPostOnProfileAdapter
 import com.example.instagramclone.databinding.FragmentHomeBinding
 import com.example.instagramclone.utils.POST
 import com.google.firebase.Firebase
@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
 
     private var postList = ArrayList<UploadPost>()
 
-    private lateinit var adapter: PostAdapter
+    private lateinit var adapter: UploadPostOnProfileAdapter
 
     // onCreate method
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment using the binding object
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        adapter = PostAdapter(requireContext(), postList)
+        adapter = UploadPostOnProfileAdapter(requireContext(), postList)
 
         binding.homeRecycleView.layoutManager = LinearLayoutManager(requireContext())
 

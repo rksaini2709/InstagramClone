@@ -40,24 +40,12 @@
         android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- TextInputEditText for entering caption -->
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/caption"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="Write a caption"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/select_image"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="@+id/select_image"
-        app:layout_constraintTop_toBottomOf="@+id/select_image"
-        app:layout_constraintVertical_bias="0.07999998" />
-
     <!-- LinearLayout for Reel section -->
+
+    <!-- TextView for guidance message -->
     <LinearLayout
         android:id="@+id/reel"
         android:layout_width="match_parent"
@@ -66,11 +54,14 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caption"
         app:layout_constraintVertical_bias="0.0">
 
         <!-- ImageView for Reel icon -->
+
+        <!-- TextView for Reel label -->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="40dp"
@@ -78,7 +69,6 @@
             android:padding="2dp"
             android:src="@drawable/post_upload" />
 
-        <!-- TextView for Reel label -->
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -89,16 +79,14 @@
             android:text="Shared to Post"
             android:textSize="18sp"
             android:textStyle="bold" />
-
     </LinearLayout>
 
-    <!-- TextView for guidance message -->
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="Your post may be appear in Posts and can be seen on the posts tab under your profile"
+        android:text="Your post may appear in Posts and can be seen on the posts tab under your profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/reel"
         app:layout_constraintStart_toStartOf="@+id/reel"
@@ -135,5 +123,15 @@
             android:backgroundTint="@color/click_button_blue"
             android:text="Post" />
     </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/caption"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_margin="10dp"
+        android:hint="Write a caption"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/select_image"
+        tools:layout_editor_absoluteX="6dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

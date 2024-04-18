@@ -19,3 +19,6 @@ const val POST= "Post"
 
 // Node for storing reel data in Firebase Firestore
 const val REEL= "Reel"
+
+// Node for storing follow data in Firebase Firestore
+const val FOLLOW= "Follow"
