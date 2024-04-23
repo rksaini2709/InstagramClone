@@ -1,4 +1,4 @@
-package com.example.instagramclone
+package com.example.instagramclone.Post
 
 import android.Manifest
 import android.app.ProgressDialog
@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.instagramclone.HomeActivity
 import com.example.instagramclone.Models.UploadReel
 import com.example.instagramclone.Models.User
 import com.example.instagramclone.databinding.ActivityReelUploadBinding
@@ -83,7 +84,8 @@ class ReelUploadActivity : AppCompatActivity() {
                     if (reelUrl != null) {
 
                         // Create an UploadReel object with the reel URL, caption, and user profile image URL
-                        val reel = UploadReel(reelUrl!!, binding.caption.editableText?.toString() ?: "", user?.image ?: "")
+                        // Create an UploadReel object with the reel URL, caption, profile link, and user
+                        val reel = UploadReel(reelUrl!!, binding.caption.editableText?.toString() ?: "", user?.image ?: "", user?.name ?: "")
 
                         val firestore = FirebaseFirestore.getInstance()
                         val reelRef = firestore.collection(REEL).document()

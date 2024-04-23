@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.example.instagramclone.Models.UploadReel
 import com.example.instagramclone.adapters.ReelAdapter
 import com.example.instagramclone.databinding.FragmentReelBinding
-import com.example.instagramclone.utils.REEL
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
@@ -37,7 +36,7 @@ class ReelFragment : Fragment() {
         binding.viewPager.adapter = adapter
 
         // Fetch data from Firebase Firestore
-        Firebase.firestore.collection(REEL).get().addOnSuccessListener { querySnapshot ->
+        Firebase.firestore.collection("Reels").get().addOnSuccessListener { querySnapshot ->
             val tempList = ArrayList<UploadReel>() // Temporary list to hold fetched data
 
             // Loop through the documents fetched from Firestore

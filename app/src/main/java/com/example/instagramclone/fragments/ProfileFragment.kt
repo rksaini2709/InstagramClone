@@ -22,7 +22,6 @@ import com.example.instagramclone.databinding.FragmentProfileBinding
 import com.example.instagramclone.utils.USER_NODE
 import com.example.instagramclone.utils.USER_PROFILE_FOLDER
 import com.example.instagramclone.utils.uploadImage
-import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -33,77 +32,49 @@ class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var viewPagerAdapter: ViewPagerAdapter
-    private lateinit var user: User // Global variable declared here
+    private lateinit var user: User
     private var selectedImageUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout using data binding
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        // Activity Result Launcher for picking images
         val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 result.data?.data?.let { uri ->
                     selectedImageUri = uri
-                    binding.profileImage.setImageURI(uri)
+                    // Upload the selected image to storage and update user profile
                     uploadImageToStorage(uri)
                 }
             }
         }
 
-        // Set click listener for adding profile image
         binding.addImage.setOnClickListener {
-            // Launch the image picker
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             launcher.launch(intent)
         }
 
-        // Set click listener for the edit profile button
         binding.editProfile.setOnClickListener {
-            // Create intent to launch SignUpActivity for profile update
             val intent = Intent(activity, SignUpActivity::class.java)
             intent.putExtra("MODE", 1)
             startActivity(intent)
-            activity?.finish() // Finish current activity to prevent going back to it when SignUpActivity finishes
+            activity?.finish()
         }
 
-        // Initialize and set up the ViewPager adapter with fragments
-        viewPagerAdapter = ViewPagerAdapter(requireActivity())
-        viewPagerAdapter.addFragment(MyPostFragment(), "My Post")
-        viewPagerAdapter.addFragment(MyReelFragment(), "My Reel")
-        viewPagerAdapter.addFragment(TagFragment(), "Tags")
+        viewPagerAdapter = ViewPagerAdapter(requireActivity().supportFragmentManager)
+        viewPagerAdapter.addFragments(MyPostFragment(), "")
+        viewPagerAdapter.addFragments(MyReelFragment(), "")
+        viewPagerAdapter.addFragments(TagFragment(), "")
         binding.viewPager.adapter = viewPagerAdapter
+        binding.tabLayout.setupWithViewPager(binding.viewPager)
 
-        // Set up TabLayout with ViewPager using TabLayoutMediator
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            // Set custom view for each tab (in this case, setting icons)
-            when (position) {
-                0 -> tab.setIcon(R.drawable.my_post) // Set icon for "My Post" tab
-                1 -> tab.setIcon(R.drawable.reel_icon) // Set icon for "My Reel" tab
-                2 -> tab.setIcon(R.drawable.tag_me) // Set icon for "Tags" tab
-            }
-        }.attach() // Attach TabLayoutMediator
+        binding.tabLayout.getTabAt(0)?.setIcon(R.drawable.my_post)
+        binding.tabLayout.getTabAt(1)?.setIcon(R.drawable.reel_icon)
+        binding.tabLayout.getTabAt(2)?.setIcon(R.drawable.tag_me)
 
         return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        // Fetch user data from Firestore and update UI
-        Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).get()
-            .addOnSuccessListener { document ->
-                user = document.toObject<User>() ?: User() // Initialize user object if null
-                binding.name.text = user.name
-                binding.bio.text = user.email
-                // Load user's profile image if it's not null or empty
-                if (!user.image.isNullOrEmpty()) {
-                    Picasso.get().load(user.image).into(binding.profileImage)
-                }
-            }
     }
 
     private fun uploadImageToStorage(uri: Uri) {
@@ -111,17 +82,23 @@ class ProfileFragment : Fragment() {
             // Upload the image to storage
             uploadImage(uri, USER_PROFILE_FOLDER) { imageUrl ->
                 if (imageUrl == null) {
-                    // Handle the case when image upload fails
                     Toast.makeText(requireContext(), "Failed to upload image", Toast.LENGTH_SHORT).show()
                 } else {
-                    // Assign the image URL to the user object
-                    user.image = imageUrl
+                    // Update user profile with the new image URL
+                    updateUserProfile(imageUrl)
                 }
             }
         } else {
             // Request storage permission if not granted
             requestStoragePermission()
         }
+    }
+
+    private fun updateUserProfile(imageUrl: String) {
+        // Update user object with new image URL
+        user.image = imageUrl
+        // Display the updated user profile image
+        Picasso.get().load(user.image).into(binding.profileImage)
     }
 
     private fun isStoragePermissionGranted(): Boolean {
@@ -135,7 +112,31 @@ class ProfileFragment : Fragment() {
         requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), STORAGE_PERMISSION_CODE)
     }
 
+    override fun onStart() {
+        super.onStart()
+        // Load user profile when fragment starts
+        loadUserProfile()
+    }
+
+    private fun loadUserProfile() {
+        // Reload user profile from Firestore
+        Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid)
+            .get()
+            .addOnSuccessListener { document ->
+                user = document.toObject<User>()!!
+                // Display the user profile
+                binding.name.text = user.name
+                binding.bio.text = user.email
+                if (!user.image.isNullOrEmpty()) {
+                    Picasso.get().load(user.image).into(binding.profileImage)
+                }
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(requireContext(), "Failed to load profile: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
     companion object {
-        private const val STORAGE_PERMISSION_CODE = 100
+        private const val STORAGE_PERMISSION_CODE = 113
     }
 }

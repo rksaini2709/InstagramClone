@@ -24,10 +24,10 @@
             android:name=".StoryUploadActivity"
             android:exported="false" />
         <activity
-            android:name=".PostUploadActivity"
+            android:name=".Post.PostUploadActivity"
             android:exported="false" />
         <activity
-            android:name=".ReelUploadActivity"
+            android:name=".Post.ReelUploadActivity"
             android:exported="false" /> <!-- Define application components such as activities, services, broadcast receivers, and content providers -->
         <!-- Activity for the home screen -->
         <activity

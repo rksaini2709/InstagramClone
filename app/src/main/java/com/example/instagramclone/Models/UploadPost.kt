@@ -17,6 +17,10 @@ class UploadPost {
 
     // Default constructor with no parameters
     constructor()
+    constructor(uploadPostUrl: String, caption: String) {
+        this.uploadPostUrl = uploadPostUrl
+        this.caption = caption
+    }
 
     // Secondary constructor with parameters to initialize uploadPostUrl, caption, uid, and time
     constructor(uploadPostUrl: String, caption: String, uid: String, time: String) {

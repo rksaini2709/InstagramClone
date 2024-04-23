@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.instagramclone.PostUploadActivity
-import com.example.instagramclone.ReelUploadActivity
+import com.example.instagramclone.Post.PostUploadActivity
+import com.example.instagramclone.Post.ReelUploadActivity
 import com.example.instagramclone.databinding.FragmentAddBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

@@ -10,47 +10,44 @@ import com.example.instagramclone.Models.UploadPost
 import com.example.instagramclone.adapters.UploadPostOnProfileAdapter
 import com.example.instagramclone.databinding.FragmentMyPostBinding
 import com.google.firebase.Firebase
-import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 
 class MyPostFragment : Fragment() {
+
     private lateinit var binding : FragmentMyPostBinding
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment using ViewBinding
+    ): View {
+        // Inflate the layout using data binding
         binding = FragmentMyPostBinding.inflate(inflater, container, false)
 
-        // Initialize an empty list to hold UploadPost objects
-        val postList = ArrayList<UploadPost>()
-
-        // Initialize the adapter with the context and the empty post list
-        val adapter = UploadPostOnProfileAdapter(requireContext(), postList)
-
-        // Set up the RecyclerView with a StaggeredGridLayoutManager
+        var postList = ArrayList<UploadPost>()
+        var adapter = UploadPostOnProfileAdapter(requireContext(), postList)
         binding.uploadedPostOnProfile.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
 
-        // Set the adapter for the RecyclerView
         binding.uploadedPostOnProfile.adapter = adapter
-
-        // Fetch posts from Firestore
-        Firebase.firestore.collection(Firebase.auth.currentUser!!.uid).get().addOnSuccessListener { querySnapshot ->
-            val tempList = arrayListOf<UploadPost>()
-            for (document in querySnapshot.documents) {
-                // Convert each document to an UploadPost object and add it to the temporary list
-                val post: UploadPost = document.toObject<UploadPost>()!!
+        Firebase.firestore.collection("Post").get().addOnSuccessListener {
+            var tempList = arrayListOf<UploadPost>()
+            for (i in it.documents){
+                var post : UploadPost = i.toObject<UploadPost>()!!
                 tempList.add(post)
             }
-            // Add all the fetched posts to the main post list
             postList.addAll(tempList)
+
             // Notify the adapter that the data set has changed
             adapter.notifyDataSetChanged()
         }
 
-        // Return the root view of the inflated layout
         return binding.root
+        }
+
+    companion object {
+
     }
 }
