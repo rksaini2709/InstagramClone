@@ -32,10 +32,10 @@ class MyPostFragment : Fragment() {
         binding.uploadedPostOnProfile.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
 
         binding.uploadedPostOnProfile.adapter = adapter
-        Firebase.firestore.collection("Post").get().addOnSuccessListener {
+        Firebase.firestore.collection("Post").get().addOnSuccessListener {querySnapshot ->
             var tempList = arrayListOf<UploadPost>()
-            for (i in it.documents){
-                var post : UploadPost = i.toObject<UploadPost>()!!
+            for (document in querySnapshot.documents){
+                var post : UploadPost = document.toObject<UploadPost>()!!
                 tempList.add(post)
             }
             postList.addAll(tempList)

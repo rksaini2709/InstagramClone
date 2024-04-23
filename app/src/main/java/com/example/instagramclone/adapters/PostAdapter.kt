@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.instagramclone.Models.UploadPost
 import com.example.instagramclone.Models.User
 import com.example.instagramclone.R
-import com.example.instagramclone.databinding.LatestUploadedPostBinding
+import com.example.instagramclone.databinding.HomePostDesignBinding
 import com.example.instagramclone.utils.USER_NODE
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
@@ -20,13 +20,13 @@ class PostAdapter(
 ) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     // Inner ViewHolder class to hold the views for each item in the RecyclerView
-    inner class ViewHolder(val binding: LatestUploadedPostBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: HomePostDesignBinding) : RecyclerView.ViewHolder(binding.root)
 
     // Creating ViewHolder instances
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // Inflating the layout for each item in the RecyclerView
         val inflater = LayoutInflater.from(parent.context)
-        val binding = LatestUploadedPostBinding.inflate(inflater, parent, false)
+        val binding = HomePostDesignBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
     }
 
@@ -63,7 +63,7 @@ class PostAdapter(
         Glide.with(context)
             .load(post.uploadPostUrl)
             .placeholder(R.drawable.loading) // Placeholder image while loading
-            .into(holder.binding.postedImage) // Setting the loaded image to the ImageView
+            .into(holder.binding.postImage) // Setting the loaded image to the ImageView
 
         // Setting the time and caption of the post to the TextViews in the layout
         // holder.binding.postTime.text = TimeAgo.using(post.time.toLong()) // Using the TimeAgo class
