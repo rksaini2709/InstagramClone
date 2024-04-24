@@ -8,6 +8,44 @@
     android:orientation="vertical"
     tools:context=".fragments.ProfileFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/threads"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end"
+            android:layout_marginStart="260dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/threads" />
+
+        <Space
+            android:layout_width="15dp"
+            android:layout_height="0dp" />
+
+        <ImageView
+            android:id="@+id/add_post"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end"
+            android:src="@drawable/add_post_icon" />
+
+        <Space
+            android:layout_width="15dp"
+            android:layout_height="0dp" />
+
+        <ImageView
+            android:id="@+id/menu_line"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/menu_line" />
+    </LinearLayout>
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -17,7 +55,7 @@
             android:layout_width="85dp"
             android:layout_height="85dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="16dp"
             android:src="@drawable/user_profile_image"
             app:layout_constraintBottom_toBottomOf="parent"
