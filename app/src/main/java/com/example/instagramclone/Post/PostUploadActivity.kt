@@ -69,9 +69,8 @@ class PostUploadActivity : AppCompatActivity() {
                     val post = UploadPost(
                         uploadPostUrl = imageUrl!!,
                         caption = binding.caption.editableText?.toString() ?: "",
-                        uid = user.uid,
+                        uid = Firebase.auth.currentUser!!.uid,
                         time = System.currentTimeMillis().toString()
-                        // imageUrl!!, binding.caption.editableText?.toString() ?: "", user.uid, System.currentTimeMillis().toString()
                     )
                     val firestore = Firebase.firestore
                     firestore.collection(POST).document().set(post)

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.instagramclone.Models.UploadPost
 import com.example.instagramclone.R
-import com.example.instagramclone.adapters.UploadPostOnProfileAdapter
+import com.example.instagramclone.adapters.PostAdapter
 import com.example.instagramclone.databinding.FragmentHomeBinding
 import com.example.instagramclone.utils.POST
 import com.google.firebase.Firebase
@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
 
     private var postList = ArrayList<UploadPost>()
 
-    private lateinit var adapter: UploadPostOnProfileAdapter
+    private lateinit var adapter: PostAdapter
 
     // onCreate method
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment using the binding object
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        adapter = UploadPostOnProfileAdapter(requireContext(), postList)
+        adapter = PostAdapter(requireContext(), postList)
 
         binding.homeRecycleView.layoutManager = LinearLayoutManager(requireContext())
 
@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
         Firebase.firestore.collection(POST).get().addOnSuccessListener {
 
             // Temporary list to hold fetched posts
-            val tempList = ArrayList<UploadPost>()
+            var tempList = ArrayList<UploadPost>()
 
             // Clear existing postList
             postList.clear()
@@ -70,7 +70,7 @@ class HomeFragment : Fragment() {
             // Loop through each document in the result
             for (document in it.documents) {
                 // Convert Firestore document to UploadPost object
-                val post : UploadPost = document.toObject<UploadPost>()!!
+                var post : UploadPost = document.toObject<UploadPost>()!!
 
                 // Add post to temporary list
                 tempList.add(post)
@@ -93,10 +93,5 @@ class HomeFragment : Fragment() {
         inflater.inflate(R.menu.notification_msg_menu, menu)
         // Call the superclass implementation of this method
         super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    // Companion object
-    companion object {
-
     }
 }

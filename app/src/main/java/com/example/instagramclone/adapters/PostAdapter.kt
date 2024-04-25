@@ -49,7 +49,7 @@ class PostAdapter(
                     // Loading user profile image using Glide library
                     Glide.with(context)
                         .load(user?.image)
-                        .placeholder(R.drawable.profile_icon) // Placeholder image while loading
+                        .placeholder(R.drawable.user_profile_image) // Placeholder image while loading
                         .into(holder.binding.profileImage) // Setting the loaded image to the ImageView
 
                     // Setting the name of the user to the TextView in the layout
