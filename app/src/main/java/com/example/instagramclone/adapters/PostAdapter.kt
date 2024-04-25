@@ -1,6 +1,7 @@
 package com.example.instagramclone.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -64,6 +65,14 @@ class PostAdapter(
             .load(post.uploadPostUrl)
             .placeholder(R.drawable.loading) // Placeholder image while loading
             .into(holder.binding.postImage) // Setting the loaded image to the ImageView
+
+        // post share
+        holder.binding.sharePost.setOnClickListener {
+            var i = Intent(Intent.ACTION_SEND)
+            i.type = "text/plain"
+            i.putExtra(Intent.EXTRA_TEXT, post.uploadPostUrl)
+            context.startActivity(i)
+        }
 
         // Setting the time and caption of the post to the TextViews in the layout
         // holder.binding.postTime.text = TimeAgo.using(post.time.toLong()) // Using the TimeAgo class

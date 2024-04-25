@@ -10,11 +10,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.instagramclone.Models.UploadPost
+import com.example.instagramclone.Models.User
 import com.example.instagramclone.R
+import com.example.instagramclone.adapters.FollowingStoryDesignAdapter
 import com.example.instagramclone.adapters.PostAdapter
 import com.example.instagramclone.databinding.FragmentHomeBinding
+import com.example.instagramclone.utils.FOLLOW
 import com.example.instagramclone.utils.POST
 import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 
@@ -27,6 +31,10 @@ class HomeFragment : Fragment() {
     private var postList = ArrayList<UploadPost>()
 
     private lateinit var adapter: PostAdapter
+
+    private var followList = ArrayList<User>()
+
+    private lateinit var followingStoryDesignAdapter: FollowingStoryDesignAdapter
 
     // onCreate method
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +55,23 @@ class HomeFragment : Fragment() {
         binding.homeRecycleView.layoutManager = LinearLayoutManager(requireContext())
 
         binding.homeRecycleView.adapter = adapter
+
+        followingStoryDesignAdapter = FollowingStoryDesignAdapter(requireContext(), followList)
+
+        binding.followingProfile.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        binding.followingProfile.adapter = followingStoryDesignAdapter
+
+        Firebase.firestore.collection(Firebase.auth.currentUser!!.uid + FOLLOW).get().addOnSuccessListener {
+            var  tempList = ArrayList<User>()
+            followList.clear()
+            for(i in it.documents){
+                var user : User = i.toObject<User>()!!
+                tempList.add(user)
+            }
+            followList.addAll(tempList)
+            followingStoryDesignAdapter.notifyDataSetChanged()
+        }
 
         // This fragment has an options menu, so we need to set this flag to true
         setHasOptionsMenu(true)
