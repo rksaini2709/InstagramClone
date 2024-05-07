@@ -1,12 +1,10 @@
 package com.example.instagramclone.fragments
 
 import android.Manifest
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,19 +39,30 @@ class ProfileFragment : Fragment() {
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                result.data?.data?.let { uri ->
-                    selectedImageUri = uri
-                    // Upload the selected image to storage and update user profile
-                    uploadImageToStorage(uri)
+        // Activity Result Launcher for picking images
+        val launcher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let {
+                // Handle the selected image URI here
+                uploadImage(uri, USER_PROFILE_FOLDER) { imageUrl ->
+                    if (imageUrl == null) {
+                        // Handle the case when image upload fails
+                        Toast.makeText(requireContext(), "Failed to upload image", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // Assign the image URL to the user object
+                        user.image = imageUrl
+
+                        // Set the image URI to the ImageView in the layout
+                        // This displays the selected image to the user
+                        binding.profileImage.setImageURI(uri)
+                    }
                 }
             }
         }
 
+        // Set onClickListener for adding profile image
         binding.addImage.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            launcher.launch(intent)
+            // Launch the image picker
+            launcher.launch("image/*")
         }
 
         binding.editProfile.setOnClickListener {
@@ -67,12 +76,12 @@ class ProfileFragment : Fragment() {
         viewPagerAdapter.addFragments(MyPostFragment(), "")
         viewPagerAdapter.addFragments(MyReelFragment(), "")
         viewPagerAdapter.addFragments(TagFragment(), "")
-        binding.viewPager.adapter = viewPagerAdapter
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
+        binding.ViewPager.adapter = viewPagerAdapter
+        binding.TabLayout.setupWithViewPager(binding.ViewPager)
 
-        binding.tabLayout.getTabAt(0)?.setIcon(R.drawable.my_post)
-        binding.tabLayout.getTabAt(1)?.setIcon(R.drawable.reel_icon)
-        binding.tabLayout.getTabAt(2)?.setIcon(R.drawable.tag_me)
+        binding.TabLayout.getTabAt(0)?.setIcon(R.drawable.my_post)
+        binding.TabLayout.getTabAt(1)?.setIcon(R.drawable.reel_icon)
+        binding.TabLayout.getTabAt(2)?.setIcon(R.drawable.tag_me)
 
         return binding.root
     }
@@ -122,8 +131,8 @@ class ProfileFragment : Fragment() {
         // Reload user profile from Firestore
         Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid)
             .get()
-            .addOnSuccessListener { document ->
-                user = document.toObject<User>()!!
+            .addOnSuccessListener { it ->
+                user = it.toObject<User>()!!
                 // Display the user profile
                 binding.name.text = user.name
                 binding.bio.text = user.email

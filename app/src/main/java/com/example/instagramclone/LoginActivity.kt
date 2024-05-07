@@ -44,13 +44,13 @@ class LoginActivity : AppCompatActivity() {
 
                 // Sign in with email and password using Firebase Authentication
                 Firebase.auth.signInWithEmailAndPassword(user.email!!, user.password!!)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
+                    .addOnCompleteListener { it ->
+                        if (it.isSuccessful) {
                             // If sign-in is successful, navigate to the HomeActivity
                             startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                         } else {
                             // If sign-in fails, display the error message
-                            Toast.makeText(this@LoginActivity, task.exception?.localizedMessage,
+                            Toast.makeText(this@LoginActivity, it.exception?.localizedMessage,
                                 Toast.LENGTH_SHORT).show()
                         }
                     }

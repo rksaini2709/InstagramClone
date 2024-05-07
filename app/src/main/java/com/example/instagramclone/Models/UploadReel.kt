@@ -9,16 +9,16 @@ class UploadReel {
     var caption: String = "" // Caption associated with the reel
     var profileLink: String? = null // Profile link of the uploader
     var user : String = ""
+    var name : String = ""
 
     // Default constructor with no parameters
     constructor()
 
-    /*// Secondary constructor with parameters to initialize reel URL and caption
-    constructor(uploadReelUrl: String, caption: String, user: String) {
+    constructor(uploadReelUrl: String, caption: String, name : String) {
         this.uploadReelUrl = uploadReelUrl
         this.caption = caption
-        this.user = user
-    }*/
+        this.name = name
+    }
 
     // Secondary constructor with parameters to initialize all properties
     constructor(uploadReelUrl: String, caption: String, profileLink: String, user: String) {

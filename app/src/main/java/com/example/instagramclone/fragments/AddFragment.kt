@@ -22,7 +22,7 @@ class AddFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment using data binding
+        // Inflate the layout for this f1ragment using data binding
         binding = FragmentAddBinding.inflate(inflater, container, false)
 
         // Set click listeners for each item in the bottom sheet

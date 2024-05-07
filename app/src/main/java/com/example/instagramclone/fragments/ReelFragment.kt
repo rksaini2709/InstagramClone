@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.instagramclone.Models.UploadReel
 import com.example.instagramclone.adapters.ReelAdapter
 import com.example.instagramclone.databinding.FragmentReelBinding
+import com.example.instagramclone.utils.REEL
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
@@ -32,23 +33,26 @@ class ReelFragment : Fragment() {
         // Initialize the adapter with the context and data list
         adapter = ReelAdapter(requireContext(), reelList)
 
-        // Set the adapter for the RecyclerView
-        binding.viewPager.adapter = adapter
+        // Set the adapter for the RecyclerView orientation
+        binding.ViewPager.adapter = adapter
 
         // Fetch data from Firebase Firestore
-        Firebase.firestore.collection("Reels").get().addOnSuccessListener { querySnapshot ->
+        Firebase.firestore.collection(REEL).get().addOnSuccessListener { it ->
             val tempList = ArrayList<UploadReel>() // Temporary list to hold fetched data
-
+            reelList.clear()
             // Loop through the documents fetched from Firestore
-            for (document in querySnapshot.documents) {
+            for (i in it.documents) {
                 // Convert each document to an UploadReel object and add to the temporary list
-                val reel = document.toObject<UploadReel>()
+                val reel = i.toObject<UploadReel>()
                 reel?.let {
-                    tempList.add(it)
+                    tempList.add(reel)
                 }
             }
             // Add all items from the temporary list to the data list
             reelList.addAll(tempList)
+
+            reelList.reverse()
+
             // Notify the adapter that the data set has changed
             adapter.notifyDataSetChanged()
         }

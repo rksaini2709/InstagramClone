@@ -10,15 +10,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="end">
 
         <ImageView
             android:id="@+id/threads"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:layout_gravity="end"
-            android:layout_marginStart="260dp"
-            android:layout_marginTop="2dp"
+            android:layout_width="30.00dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="2.00dp"
             android:src="@drawable/threads" />
 
         <Space
@@ -27,9 +26,8 @@
 
         <ImageView
             android:id="@+id/add_post"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:layout_gravity="end"
+            android:layout_width="30.00dp"
+            android:layout_height="25.00dp"
             android:src="@drawable/add_post_icon" />
 
         <Space
@@ -38,12 +36,11 @@
 
         <ImageView
             android:id="@+id/menu_line"
-            android:layout_width="30dp"
+            android:layout_width="30.00dp"
             android:layout_height="30dp"
             android:layout_marginEnd="20dp"
             android:src="@drawable/menu_line" />
     </LinearLayout>
-
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -105,43 +102,47 @@
 
         <TextView
             android:id="@+id/edit_profile"
-            android:layout_width="175dp"
-            android:layout_height="38dp"
-            android:layout_margin="15dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
-            android:padding="10dp"
-            android:text="Edit profile"
             style="@style/TextColor"
-            app:backgroundTint="@color/profile_color"
-            app:cornerRadius="8dp"
-            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15.00dp"
+            android:layout_marginTop="8.00dp"
             android:background="@drawable/edit_profile_share_btn"
+            android:gravity="center"
+            android:paddingLeft="40.00dp"
+            android:paddingTop="10.00dp"
+            android:paddingRight="40.00dp"
+            android:paddingBottom="10.0dp"
+            android:text="Edit profile"
+            app:backgroundTint="@color/profile_color"
+            app:cornerRadius="8.00dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.02"
+            app:layout_constraintEnd_toStartOf="@+id/share_profile"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bio"
             app:layout_constraintVertical_bias="0.38" />
 
         <TextView
             android:id="@+id/share_profile"
-            android:layout_width="175dp"
-            android:layout_height="38dp"
-            android:layout_margin="15dp"
-            android:layout_marginStart="175dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="172dp"
-            android:padding="10dp"
-            android:text="Share profile"
             style="@style/TextColor"
-            app:backgroundTint="@color/profile_color"
-            app:cornerRadius="8dp"
-            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15.00dp"
+            android:layout_marginBottom="172.00dp"
             android:background="@drawable/edit_profile_share_btn"
+            android:gravity="center"
+            android:paddingLeft="40.00dp"
+            android:paddingTop="10.00dp"
+            android:paddingRight="40.00dp"
+            android:paddingBottom="10.0dp"
+            android:text="Share profile"
+            app:backgroundTint="@color/profile_color"
+            app:cornerRadius="8.00dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.369"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/edit_profile"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
@@ -150,12 +151,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout"
+        android:id="@+id/TabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+        android:id="@+id/ViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

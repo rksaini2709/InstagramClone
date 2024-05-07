@@ -80,6 +80,9 @@ dependencies {
     // Dependency declaration to include Glide library in the project
     implementation ("com.github.bumptech.glide:glide:4.16.0")
 
+    implementation("com.intuit.sdp:sdp-android:1.1.0")
+    implementation("com.intuit.ssp:ssp-android:1.1.0")
+
     // timeago
 //    implementation (libs.timeago.v401)
 //    implementation ("com.github.marlonlom:timeago: 4.0.1")

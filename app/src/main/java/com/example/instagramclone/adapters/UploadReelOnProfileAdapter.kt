@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.instagramclone.Models.UploadReel
-import com.example.instagramclone.databinding.UploadedPostOnProfileBinding
+import com.example.instagramclone.databinding.MyPostProfileDesignBinding
 
 class UploadReelOnProfileAdapter(
     var context: Context,
@@ -18,14 +18,14 @@ class UploadReelOnProfileAdapter(
 ) : RecyclerView.Adapter<UploadReelOnProfileAdapter.ViewHolder>() {
 
     // ViewHolder class to hold the views for each item in the RecyclerView
-    inner class ViewHolder(var binding: UploadedPostOnProfileBinding) :
+    inner class ViewHolder(var binding: MyPostProfileDesignBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     // This method is called when RecyclerView needs a new ViewHolder to represent an item.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // Inflating the layout for each item using ViewBinding
         val binding =
-            UploadedPostOnProfileBinding.inflate(LayoutInflater.from(context), parent, false)
+            MyPostProfileDesignBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -36,11 +36,8 @@ class UploadReelOnProfileAdapter(
 
     // This method is called by RecyclerView to display the data at the specified position.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // Using Glide to load the image from the UploadReel object into the ImageView
-        Glide.with(context)
-            .load(reelList[position].uploadReelUrl)
+        Glide.with(context).load(reelList.get(position).uploadReelUrl)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.binding.postImage)
     }
 }
-

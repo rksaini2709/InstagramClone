@@ -12,7 +12,7 @@ const val USER_PROFILE_FOLDER = "Profile"
 const val UPLOAD_POST_FOLDER = "PostImages"
 
 // Folder for storing uploaded post reels in Firebase Storage
-const val UPLOAD_REEL_FOLDER = "PostReel"
+const val UPLOAD_REEL_FOLDER = "Reels"
 
 // Node for storing post data in Firebase Firestore
 const val POST= "Post"

@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="8dp"
-    android:layout_margin="2dp"
-    app:cardElevation="1dp">
+    app:cardCornerRadius="2.00dp"
+    android:layout_margin="1.00dp"
+    app:cardElevation="1.00dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,11 +18,11 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_width="45.00dp"
+                android:layout_height="45.00dp"
+                android:layout_marginStart="15.00dp"
+                android:layout_marginTop="8.00dp"
+                android:layout_marginBottom="8.00dp"
                 android:src="@drawable/user_profile_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="10.00dp"
                 android:text="Name"
                 app:layout_constraintBottom_toBottomOf="@+id/profile_image"
                 app:layout_constraintStart_toEndOf="@+id/profile_image"
@@ -53,18 +53,18 @@
 
             <ImageView
                 android:id="@+id/postLike"
-                android:layout_width="32dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="15dp"
+                android:layout_width="32.00dp"
+                android:layout_height="35.00dp"
+                android:layout_marginStart="15.00dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@drawable/heart_icon"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8.00dp" />
 
             <ImageView
                 android:id="@+id/comment"
-                android:layout_width="40dp"
-                android:layout_height="38dp"
-                android:layout_marginStart="10dp"
+                android:layout_width="40.00dp"
+                android:layout_height="38.00dp"
+                android:layout_marginStart="10.00dp"
                 app:layout_constraintBottom_toBottomOf="@+id/postLike"
                 app:layout_constraintStart_toEndOf="@+id/postLike"
                 app:srcCompat="@drawable/comment"
@@ -72,31 +72,31 @@
 
             <ImageView
                 android:id="@+id/share_post"
-                android:layout_width="35dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="10dp"
+                android:layout_width="35.00dp"
+                android:layout_height="32.00dp"
+                android:layout_marginStart="10.00dp"
                 app:layout_constraintBottom_toBottomOf="@+id/comment"
                 app:layout_constraintStart_toEndOf="@+id/comment"
                 app:srcCompat="@drawable/share" />
 
             <ImageView
                 android:id="@+id/save_post"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="15dp"
+                android:layout_width="32.00dp"
+                android:layout_height="32.00dp"
+                android:layout_marginEnd="15.00dp"
                 app:layout_constraintBottom_toBottomOf="@+id/share_post"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/share_post"
                 app:srcCompat="@drawable/save_post"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8.00dp" />
 
             <TextView
                 android:id="@+id/caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="15.00dp"
+                android:layout_marginTop="5.00dp"
                 android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.003"
@@ -107,9 +107,9 @@
                 android:id="@+id/post_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginStart="15.00dp"
+                android:layout_marginTop="5.00dp"
+                android:layout_marginBottom="5.00dp"
                 android:text="TextView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

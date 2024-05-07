@@ -10,6 +10,7 @@ import com.example.instagramclone.Models.UploadPost
 import com.example.instagramclone.adapters.UploadPostOnProfileAdapter
 import com.example.instagramclone.databinding.FragmentMyPostBinding
 import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 
@@ -32,10 +33,12 @@ class MyPostFragment : Fragment() {
         binding.uploadedPostOnProfile.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
 
         binding.uploadedPostOnProfile.adapter = adapter
-        Firebase.firestore.collection("Post").get().addOnSuccessListener {querySnapshot ->
+
+        Firebase.firestore.collection(Firebase.auth.currentUser!!.uid).get()
+            .addOnSuccessListener {it ->
             var tempList = arrayListOf<UploadPost>()
-            for (document in querySnapshot.documents){
-                var post : UploadPost = document.toObject<UploadPost>()!!
+            for (i in it. documents){
+                var post : UploadPost = i.toObject<UploadPost>()!!
                 tempList.add(post)
             }
             postList.addAll(tempList)

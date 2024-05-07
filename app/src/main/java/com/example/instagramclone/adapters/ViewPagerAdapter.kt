@@ -16,13 +16,13 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_
 
     // Return the fragment at the specified position
     override fun getItem(position: Int): Fragment {
-        return fragmentList[position]
+        return fragmentList.get(position)
     }
 
     // Get the title of the fragment at the specified position
-    override fun getPageTitle(position: Int): CharSequence {
+    override fun getPageTitle(position: Int): CharSequence? {
         // Ensure that the title is not null, and if it is, return an empty string
-        return titleList.get(position)
+        return super.getPageTitle(position)
     }
 
     // Function to add fragments to the adapter

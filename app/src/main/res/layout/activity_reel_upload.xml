@@ -25,7 +25,7 @@
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/select_reel"
         android:layout_width="wrap_content"
-        android:layout_height="250dp"
+        android:layout_height="250.00dp"
         android:scaleType="fitCenter"
         android:src="@drawable/reel_icon"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +46,7 @@
         android:id="@+id/caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="10.00dp"
         android:hint="Write a caption"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -61,7 +61,7 @@
         android:id="@+id/reel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="15.00dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,9 +72,9 @@
         <!-- ImageView for Reel icon -->
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="2dp"
+            android:layout_width="40.00dp"
+            android:layout_height="40.00dp"
+            android:padding="2.00dp"
             android:src="@drawable/reel_icon" />
 
         <!-- TextView for Reel label -->
@@ -82,11 +82,11 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="10.00dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="Shared to Reel"
-            android:textSize="18sp"
+            android:textSize="18.00sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -96,7 +96,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="10.00dp"
         android:text="Your post may be appear in Posts and can be seen on the posts tab under your profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/reel"
@@ -108,7 +108,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="8.00dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/textView6">
 
@@ -118,7 +118,7 @@
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="10.00dp"
             android:layout_weight="1"
             android:text="Cancel"
             android:textColor="@color/click_button_blue"
@@ -129,7 +129,7 @@
             android:id="@+id/post_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="10.00dp"
             android:layout_weight="1"
             android:backgroundTint="@color/click_button_blue"
             android:text="Post" />

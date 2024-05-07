@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.instagramclone.Models.UploadReel
 import com.example.instagramclone.adapters.UploadReelOnProfileAdapter
 import com.example.instagramclone.databinding.FragmentMyReelBinding
+import com.example.instagramclone.utils.REEL
 import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 
@@ -45,7 +47,7 @@ class MyReelFragment : Fragment() {
         binding.uploadedReelOnProfile.adapter = adapter
 
         // Fetch reels from Firestore
-        Firebase.firestore.collection("Reels").get().addOnSuccessListener { querySnapshot ->
+        Firebase.firestore.collection(Firebase.auth.currentUser!!.uid + REEL).get().addOnSuccessListener { querySnapshot ->
             val tempList = arrayListOf<UploadReel>()
             for (document in querySnapshot.documents) {
                 // Convert each document to an UploadReel object and add it to the temporary list

@@ -5,24 +5,24 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagramclone.Models.UploadPost
-import com.example.instagramclone.databinding.HomePostDesignBinding
+import com.example.instagramclone.databinding.MyPostProfileDesignBinding
 import com.squareup.picasso.Picasso
 
 class UploadPostOnProfileAdapter(
     var context: Context,
     var postList: ArrayList<UploadPost>
-) : RecyclerView.Adapter<UploadPostOnProfileAdapter.MyHolder>() {
+) : RecyclerView.Adapter<UploadPostOnProfileAdapter.ViewHolder>() {
 
     // ViewHolder class to hold the views for each item in the RecyclerView
-    inner class MyHolder(var binding: HomePostDesignBinding) :
+    inner class ViewHolder(var binding: MyPostProfileDesignBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     // This method is called when RecyclerView needs a new ViewHolder to represent an item.
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // Inflating the layout for each item using ViewBinding
         val binding =
-            HomePostDesignBinding.inflate(LayoutInflater.from(context), parent, false)
-        return MyHolder(binding)
+            MyPostProfileDesignBinding.inflate(LayoutInflater.from(context), parent, false)
+        return ViewHolder(binding)
     }
 
     // This method returns the size of the dataset, i.e., the number of items to be displayed in the RecyclerView.
@@ -31,8 +31,8 @@ class UploadPostOnProfileAdapter(
     }
 
     // This method is called by RecyclerView to display the data at the specified position.
-    override fun onBindViewHolder(holder: MyHolder, position: Int) {
-        holder.binding.postImage
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+//        holder.binding.postImage
         // Using Picasso library to load the image from the URL into the ImageView
         Picasso.get().load(postList.get(position).uploadPostUrl).into(holder.binding.postImage)
     }

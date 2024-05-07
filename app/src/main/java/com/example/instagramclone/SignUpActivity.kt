@@ -32,17 +32,16 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var user: User
 
     // Activity Result Launcher for picking images
-    private val launcher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+    private val launcher = registerForActivityResult(ActivityResultContracts.GetContent()){uri ->
         uri?.let {
             // Handle the selected image URI here
-            uploadImage(uri, USER_PROFILE_FOLDER) { imageUrl ->
-                if (imageUrl == null) {
+            uploadImage(uri, USER_PROFILE_FOLDER){
+                if (it == null){
                     // Handle the case when image upload fails
                     Toast.makeText(this@SignUpActivity, "Failed to upload image", Toast.LENGTH_SHORT).show()
-                } else {
+                }else{
                     // Assign the image URL to the user object
-                    user.image = imageUrl
-
+                    user.image = it
                     // Set the image URI to the ImageView in the layout
                     // This displays the selected image to the user
                     binding.profileImage.setImageURI(uri)
@@ -77,9 +76,9 @@ class SignUpActivity : AppCompatActivity() {
 
                 // Access Firestore instance and fetch user data for profile update
                 Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).get()
-                    .addOnSuccessListener { document ->
+                    .addOnSuccessListener { it ->
                         // Convert Firestore document to User object
-                        user = document.toObject<User>()!!
+                        user = it.toObject<User>()!!
 
                         // Load the user's profile image if it's not null or empty
                         if (!user.image.isNullOrEmpty()){

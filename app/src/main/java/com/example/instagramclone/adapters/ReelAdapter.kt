@@ -1,13 +1,14 @@
 package com.example.instagramclone.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagramclone.Models.UploadReel
 import com.example.instagramclone.R
-import com.example.instagramclone.databinding.ReelFrgmntDesignBinding
+import com.example.instagramclone.databinding.ReelFragmentDesignBinding
 import com.squareup.picasso.Picasso
 
 // ReelAdapter class definition
@@ -15,13 +16,14 @@ class ReelAdapter(var context: Context, var reelList: ArrayList<UploadReel>) :
     RecyclerView.Adapter<ReelAdapter.ViewHolder>() {
 
     // Inner ViewHolder class to hold the view references
-    inner class ViewHolder(var binding: ReelFrgmntDesignBinding) :
+    inner class ViewHolder(var binding: ReelFragmentDesignBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     // Function to create ViewHolders
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // Inflating the layout for each item in the RecyclerView
-        val binding = ReelFrgmntDesignBinding.inflate(LayoutInflater.from(context), parent, false)
+        var binding =
+            ReelFragmentDesignBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -60,6 +62,32 @@ class ReelAdapter(var context: Context, var reelList: ArrayList<UploadReel>) :
             // Start playing the video once it's prepared
             holder.binding.videoView.start()
         }
-    }
 
+        // post share
+        holder.binding.shareReel.setOnClickListener {
+            var i = Intent(Intent.ACTION_SEND)
+            i.type = "text/plain"
+            i.putExtra(Intent.EXTRA_TEXT, reelList.get(position).uploadReelUrl)
+            context.startActivity(i)
+        }
+
+        // Flag to keep track of like/unlike state
+        var isLiked = false
+
+        // OnClickListener for post like ImageView
+        holder.binding.likeReel.setOnClickListener {
+            // Toggle the like/unlike state
+            isLiked = !isLiked
+
+            // Change the resource of postLike ImageView based on like/unlike state
+            val drawableResId = if (isLiked) {
+                // If liked, set the liked icon
+                R.drawable.heart_after_post_like
+            } else {
+                // If not liked, set the regular icon
+                R.drawable.heart_icon
+            }
+            holder.binding.likeReel.setImageResource(drawableResId)
+        }
+    }
 }

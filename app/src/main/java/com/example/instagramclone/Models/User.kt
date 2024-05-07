@@ -7,6 +7,7 @@ class User {
     var name: String? = null // User's name
     var email: String? = null // User's email
     var password: String? = null // User's password
+    var time : String? = null
 
     // Default constructor
     constructor()
