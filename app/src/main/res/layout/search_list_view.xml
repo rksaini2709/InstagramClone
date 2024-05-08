@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="5dp"
-    app:contentPadding="1dp">
+    android:layout_marginTop="10.00dp"
+    android:layout_marginLeft="10.00dp"
+    android:layout_marginRight="10.00dp"
+    app:cardCornerRadius="5.00dp"
+    app:contentPadding="1.00dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,11 +15,11 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/dp_image"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
+            android:layout_width="55.00dp"
+            android:layout_height="55.00dp"
+            android:layout_marginStart="16.00dp"
+            android:layout_marginTop="2.00dp"
+            android:layout_marginBottom="2.00dp"
             android:src="@drawable/user_profile_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,9 +28,9 @@
             android:id="@+id/search_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="10.00dp"
             android:text="TextView"
-            android:textSize="15dp"
+            android:textSize="15.00dp"
             app:layout_constraintBottom_toBottomOf="@+id/dp_image"
             app:layout_constraintStart_toEndOf="@+id/dp_image"
             app:layout_constraintTop_toTopOf="@+id/dp_image" />
@@ -37,7 +39,7 @@
             android:id="@+id/follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
+            android:layout_marginEnd="25.00dp"
             android:backgroundTint="@color/click_button_blue"
             android:text="Follow"
             app:layout_constraintBottom_toBottomOf="@+id/dp_image"

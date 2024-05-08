@@ -85,7 +85,7 @@ class ReelAdapter(var context: Context, var reelList: ArrayList<UploadReel>) :
                 R.drawable.heart_after_post_like
             } else {
                 // If not liked, set the regular icon
-                R.drawable.heart_icon
+                R.drawable.reel_heart_icon
             }
             holder.binding.likeReel.setImageResource(drawableResId)
         }

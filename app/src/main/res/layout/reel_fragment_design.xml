@@ -35,9 +35,10 @@
         android:id="@+id/caption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
+        android:layout_marginStart="13.00dp"
         android:maxLines="2"
         android:text="TextView"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/profile_image"
@@ -58,9 +59,10 @@
         android:id="@+id/user"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
+        android:layout_marginStart="13.00dp"
         android:text="TextView"
         android:textSize="18sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/videoView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/profile_image"
@@ -85,7 +87,7 @@
         android:layout_marginBottom="25dp"
         app:layout_constraintBottom_toTopOf="@+id/reel_menu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/share" />
+        app:srcCompat="@drawable/reel_share" />
 
     <ImageView
         android:id="@+id/comment"
@@ -95,7 +97,7 @@
         android:layout_marginBottom="25dp"
         app:layout_constraintBottom_toTopOf="@+id/share_reel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/comment" />
+        app:srcCompat="@drawable/reel_comment" />
 
     <ImageView
         android:id="@+id/like_reel"
@@ -105,5 +107,5 @@
         android:layout_marginBottom="25dp"
         app:layout_constraintBottom_toTopOf="@+id/comment"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/heart_icon" />
+        app:srcCompat="@drawable/reel_heart_icon" />
 </androidx.constraintlayout.widget.ConstraintLayout>
