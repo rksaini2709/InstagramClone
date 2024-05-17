@@ -56,5 +56,8 @@ class LoginActivity : AppCompatActivity() {
                     }
             }
         }
+        binding.createNewAccount.setOnClickListener{
+            startActivity(Intent(this@LoginActivity, SignUpActivity::class.java))
+        }
     }
 }

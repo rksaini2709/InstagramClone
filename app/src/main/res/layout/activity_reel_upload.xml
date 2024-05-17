@@ -97,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10.00dp"
-        android:text="Your post may be appear in Posts and can be seen on the posts tab under your profile"
+        android:text="Your reel may be appear in Reels and can be seen on the reels tab under your profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/reel"
         app:layout_constraintStart_toStartOf="@+id/reel"
@@ -108,9 +108,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8.00dp"
+        android:layout_marginTop="132dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/textView6">
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        tools:layout_editor_absoluteX="0dp">
 
         <!-- Button for cancel action -->
         <Button

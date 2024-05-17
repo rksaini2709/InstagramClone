@@ -48,10 +48,11 @@ class SearchAdapter(var context: Context, var userList: ArrayList<User>) :
         holder.binding.searchName.text = userList[position].name
 
         // Check if the current user is following the displayed user
-        Firebase.firestore.collection(Firebase.auth.currentUser!!.uid + FOLLOW).whereEqualTo("email",userList[position].email).get().addOnSuccessListener {
-            if (it.documents.size == 0){
+        Firebase.firestore.collection(Firebase.auth.currentUser!!.uid + FOLLOW)
+            .whereEqualTo("email", userList[position].email).get().addOnSuccessListener {
+            if (it.documents.size == 0) {
                 isfollow = false
-            }else{
+            } else {
                 holder.binding.follow.text = "Unfollow"
                 isfollow = true
             }
@@ -59,16 +60,19 @@ class SearchAdapter(var context: Context, var userList: ArrayList<User>) :
 
         // Set click listener for follow/unfollow button
         holder.binding.follow.setOnClickListener {
-            if (isfollow){
+            if (isfollow) {
                 // If user is already following, unfollow
-                Firebase.firestore.collection(Firebase.auth.currentUser!!.uid + FOLLOW).whereEqualTo("email",userList[position].email).get().addOnSuccessListener {
-                    Firebase.firestore.collection(Firebase.auth.currentUser!!.uid + FOLLOW).document(it.documents[0].id).delete()
+                Firebase.firestore.collection(Firebase.auth.currentUser!!.uid + FOLLOW)
+                    .whereEqualTo("email", userList[position].email).get().addOnSuccessListener {
+                    Firebase.firestore.collection(Firebase.auth.currentUser!!.uid + FOLLOW)
+                        .document(it.documents[0].id).delete()
                     holder.binding.follow.text = "follow"
                     isfollow = false
                 }
-            }else{
+            } else {
                 // If user is not following, follow
-                Firebase.firestore.collection(Firebase.auth.currentUser!!.uid + FOLLOW).document().set(userList[position])
+                Firebase.firestore.collection(Firebase.auth.currentUser!!.uid + FOLLOW).document()
+                    .set(userList[position])
                 holder.binding.follow.text = "Unfollow"
                 isfollow = true
             }

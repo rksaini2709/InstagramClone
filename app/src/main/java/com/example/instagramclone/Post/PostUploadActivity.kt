@@ -75,26 +75,29 @@ class PostUploadActivity : AppCompatActivity() {
         }
 
         binding.postButton.setOnClickListener {
-            Firebase.firestore.collection(USER_NODE).document().get()
-                .addOnSuccessListener {
-                    var user: User = it.toObject<User>()!!
+            val currentUser = Firebase.auth.currentUser
+            if (currentUser != null) {
+                Firebase.firestore.collection(USER_NODE).document(currentUser.uid).get()
+                    .addOnSuccessListener { documentSnapshot ->
+                        val user: User? = documentSnapshot.toObject<User>()
+                        if (user != null) {
+                            val post = UploadPost(
+                                imageUrl!!,
+                                caption = binding.caption.editableText?.toString() ?: "",
+                                profileLink = user?.image ?: "",
+                                uid = Firebase.auth.currentUser!!.uid,
+                                time = System.currentTimeMillis().toString() ?: "",
+                                userId = user.userId
+                            )
 
-                    val post: UploadPost = UploadPost(
-                        imageUrl!!,
-                        caption = binding.caption.editableText?.toString() ?: "",
-                        profileLink = user?.image ?: "",
-                        uid = Firebase.auth.currentUser!!.uid,
-                        time = System.currentTimeMillis().toString() ?: ""
-                    )
-
-                    Firebase.firestore.collection(POST).document().set(post).addOnSuccessListener {
-                        Firebase.firestore.collection(Firebase.auth.currentUser!!.uid).document()
-                            .set(post).addOnSuccessListener {
-                            startActivity(Intent(this@PostUploadActivity, HomeActivity::class.java))
-                            finish()
+                            Firebase.firestore.collection(POST).document().set(post)
+                                .addOnSuccessListener {
+                                    startActivity(Intent(this@PostUploadActivity, HomeActivity::class.java))
+                                    finish()
+                                }
                         }
                     }
-                }
+            }
         }
     }
 }

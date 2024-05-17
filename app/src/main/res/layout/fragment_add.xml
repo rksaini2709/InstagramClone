@@ -18,7 +18,7 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:src="@drawable/reel_icon"
             android:padding="2dp"
             />
@@ -46,7 +46,7 @@
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:src="@drawable/my_post"
             android:padding="6dp"
             />
@@ -74,7 +74,7 @@
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:src="@drawable/add_story"
             android:padding="5dp"
             />
@@ -102,7 +102,7 @@
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:src="@drawable/story_highlight"
             android:padding="3dp"
             />
@@ -130,7 +130,7 @@
         <ImageView
             android:id="@+id/imageView5"
             android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:src="@drawable/go_live"
             android:padding="3dp"
             />

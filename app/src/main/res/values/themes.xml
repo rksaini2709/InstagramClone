@@ -9,5 +9,11 @@
     <!-- This style inherits from the base theme -->
     <style name="Theme.InstagramClone" parent="Base.Theme.InstagramClone" />
 
+<!--    <style name="DialogActivityTheme" parent="Theme.AppCompat.Light.Dialog">-->
+<!--        <item name="android:windowMinWidthMajor">90%</item>-->
+<!--        <item name="android:windowMinWidthMinor">90%</item>-->
+<!--    </style>-->
+
+
     <!-- Use black color for text in light mode -->
 </resources>

@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.instagramclone.Models.User
+import com.example.instagramclone.ProfileMenuActivty
 import com.example.instagramclone.R
 import com.example.instagramclone.SignUpActivity
 import com.example.instagramclone.adapters.ViewPagerAdapter
@@ -70,6 +71,15 @@ class ProfileFragment : Fragment() {
             intent.putExtra("MODE", 1)
             startActivity(intent)
             activity?.finish()
+        }
+/*
+        binding.addPost.setOnClickListener {
+            startActivity(Intent(activity, AddFragment::class.java))
+        }
+*/
+
+        binding.menuLine.setOnClickListener{
+            startActivity(Intent(activity, ProfileMenuActivty::class.java))
         }
 
         viewPagerAdapter = ViewPagerAdapter(requireActivity().supportFragmentManager)

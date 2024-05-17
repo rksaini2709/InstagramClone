@@ -60,7 +60,7 @@
                 android:id="@+id/addImage"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginStart="50dp"
                 app:layout_constraintBottom_toBottomOf="@+id/profile_image"
                 app:layout_constraintEnd_toEndOf="@+id/profile_image"
                 app:layout_constraintStart_toStartOf="@+id/profile_image"
